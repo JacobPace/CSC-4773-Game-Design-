@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Score : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        score = 0.0f;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

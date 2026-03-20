@@ -39,4 +39,9 @@ public class Shield : MonoBehaviour
         }
         shield.SetActive(IsActive);
     }
+
+    public void FullRefill()
+    {
+        protectTime = maxProtectTime;
+    }
 }

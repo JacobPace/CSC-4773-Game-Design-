@@ -10,11 +10,13 @@ public class Game : MonoBehaviour
     // private fields
     private float enemySpawnTimer;
     private float powerupSpawnTimer;
+    private float powerUpDelay;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        powerUpDelay = Random.Range(5f, 10f);
+        powerupSpawnTimer = 0;
     }
 
     private void SpawnEnemy()
@@ -43,6 +45,14 @@ public class Game : MonoBehaviour
         {
             SpawnEnemy();
             enemySpawnTimer = 0.0f;
+        }
+
+        powerupSpawnTimer += Time.deltaTime;
+        if (powerupSpawnTimer >= powerUpDelay)
+        {
+            SpawnPowerUp();
+            powerUpDelay = Random.Range(5, 10);
+            powerupSpawnTimer = 0.0f;
         }
     }
 }

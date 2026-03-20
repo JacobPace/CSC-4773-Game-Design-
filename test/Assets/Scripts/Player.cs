@@ -58,4 +58,9 @@ public class Player : MonoBehaviour
         }
         
     }
+
+    public void RefillShield()
+    {
+        shield.FullRefill();
+    }
 }
