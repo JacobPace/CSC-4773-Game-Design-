@@ -3,6 +3,7 @@ using UnityEngine;
 public class Powerup : MonoBehaviour {
   // set in inspector
   public float speed;
+    public Multishoot multishoot;
 
   void Update() {
     transform.Translate(Vector3.left * speed * Time.deltaTime);
@@ -14,8 +15,23 @@ public class Powerup : MonoBehaviour {
       Destroy(c.gameObject);
     }
     else if (c.gameObject.CompareTag("Player")) {
-      Destroy(gameObject);
-      c.gameObject.GetComponent<Player>().RefillShield();
+        if (gameObject.CompareTag("PowerUpShield"))
+            {
+                Destroy(gameObject);
+                c.gameObject.GetComponent<Player>().RefillShield();
+            } 
+        else if (gameObject.CompareTag("PowerUpMultishoot"))
+            {
+                Destroy(gameObject);
+                c.gameObject.GetComponent<Player>().MultiShoot();
+
+            } 
+         else if (gameObject.CompareTag("PowerUpLaser"))
+            {
+                Destroy(gameObject);
+                //c.gameObject.GetComponent<Player>().FireLaser();
+            }
+      
     }
   }
 

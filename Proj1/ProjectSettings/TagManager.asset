@@ -5,10 +5,16 @@ TagManager:
   serializedVersion: 3
   tags:
   - Bullet
-  - Enemy
   - ShieldBoost
   - ScreenOutOfBounds
   - Cleanup
+  - Powerup
+  - PowerUpLaser
+  - PowerUpMultishoot
+  - PowerUpShield
+  - EnemyType1
+  - EnemyType2
+  - EnemyType3
   layers:
   - Default
   - TransparentFX
