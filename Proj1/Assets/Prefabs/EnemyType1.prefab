@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3962884075955072905}
   - component: {fileID: 7769416971223498841}
-  - component: {fileID: 2320654013732533738}
   - component: {fileID: 5318251962077941758}
   - component: {fileID: -2923634680275700892}
-  m_Layer: 0
+  - component: {fileID: 5923971067974985431}
+  m_Layer: 7
   m_Name: EnemyType1
   m_TagString: EnemyType1
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7715856770811495700}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.283, y: 0.779, z: 0}
+  m_LocalPosition: {x: -1.02614, y: -0.35, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -94,22 +94,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &2320654013732533738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7715856770811495700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18815278a21f432aa48915cffbdbeec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  e1Speed: 6
-  e2Speed: 6
-  e3Speed: 2
-  expoPrefab: {fileID: 5386597588948128404, guid: 8a7efade44ac549dda33630687e1524f, type: 3}
 --- !u!50 &5318251962077941758
 Rigidbody2D:
   serializedVersion: 5
@@ -118,7 +102,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7715856770811495700}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -136,7 +120,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &-2923634680275700892
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -183,3 +167,22 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.48, y: 0.43}
   m_EdgeRadius: 0
+--- !u!114 &5923971067974985431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7715856770811495700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b18815278a21f432aa48915cffbdbeec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  e1Speed: 6
+  e2Speed: 11
+  e3Speed: 2
+  bossSpeed: 0.5
+  expoPrefab: {fileID: 5386597588948128404, guid: 8a7efade44ac549dda33630687e1524f, type: 3}
+  ui: {fileID: 0}
+  game: {fileID: 0}

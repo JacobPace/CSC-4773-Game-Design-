@@ -1,32 +1,67 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.UI;
 
-public class UI : MonoBehaviour {
-  public GameObject uiTitle;
-  public GameObject uiGameover;
-  public GameObject uiControls;
-  public GameObject uiPause;
+public class UI : MonoBehaviour
+{
+    public GameObject uiTitle;
+    public GameObject uiGameover;
+    public GameObject uiControls;
+    public GameObject uiPause;
+    public GameObject uiWin;
+    
+    // set in inspector
+    public TextMeshProUGUI finalScoreGameOver;
+    public TextMeshProUGUI finalScoreWin;
 
+    public Button restartButton;
 
-  public bool IsReady { get; private set; }
-  public bool IsPaused { get; private set; }
-  
+    public bool IsReady { get; private set; }
+    public bool IsPaused { get; private set; }
 
-  private void Start() {
-    uiGameover.SetActive(false);
-    uiTitle.SetActive(true);
-    uiControls.SetActive(false);
-    uiPause.SetActive(false);
-    SpaceShooterInput.Instance.DisableInput();
-    IsReady = false;
-    IsPaused = false;
-  }
+    public static UI Instance;
+    private void Awake()
+    {
+        Instance = this;
+        uiGameover.SetActive(false);
+        uiTitle.SetActive(true);
+        uiControls.SetActive(false);
+        uiPause.SetActive(false);
+        uiWin.SetActive(false);
+        SpaceShooterInput.Instance.DisableInput();
+        IsReady = false;
+        IsPaused = false;
+        Time.timeScale = 1.0f;
+    }
+    private void Start()
+    {
+        uiGameover.SetActive(false);
+        uiTitle.SetActive(true);
+        uiControls.SetActive(false);
+        uiPause.SetActive(false);
+        uiWin.SetActive(false);
+        SpaceShooterInput.Instance.DisableInput();
+        IsReady = false;
+        IsPaused = false;
+        Time.timeScale = 1.0f;
+    }
 
-  public void ShowGameOver() {
-    uiGameover.SetActive(true);
-    SpaceShooterInput.Instance.DisableInput();
-    IsReady = false;
-  }
+    public void ShowGameOver()
+    {
+        uiGameover.SetActive(true);
+        finalScoreGameOver.text = "Final Score: " + Score.Instance.score.ToString();
+        SpaceShooterInput.Instance.DisableInput();
+        IsReady = false;
+    }
+    public void ShowWin()
+    {
+        uiWin.SetActive(true);
+        finalScoreWin.text = "Final Score: " + Score.Instance.score.ToString();
+        SpaceShooterInput.Instance.DisableInput();
+        IsReady = false;
+        Time.timeScale = 0;
+    }
 
     public void ControlsUiToggle()
     {
@@ -40,22 +75,33 @@ public class UI : MonoBehaviour {
         }
     }
 
-  public void RestartGame() {
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-  }
+    public void RestartGame()
+    {
+        Time.timeScale = 1.0f;
+        //Instance = null;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
-  public void StartGame() {
-    SpaceShooterInput.Instance.EnableInput();
-    IsReady = true;
-    uiTitle.SetActive(false);
-  }
-  
-  public void CloseGame()
+    void ExecuteReload()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+    }
+
+    public void StartGame()
+    {
+        uiWin.SetActive(false);
+        SpaceShooterInput.Instance.EnableInput();
+        IsReady = true;
+        uiTitle.SetActive(false);
+        uiWin.SetActive(false);
+    }
+
+    public void CloseGame()
     {
         Application.Quit();
     }
 
-  public void PauseGame()
+    public void PauseGame()
     {
         if (IsReady)
         {
@@ -75,4 +121,21 @@ public class UI : MonoBehaviour {
             }
         }
     }
+
+    private void OnApplicationQuit()
+    {
+        Instance = null;
+    }
+    void OnEnable()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Time.timeScale = 1.0f;
+        IsPaused = false;
+        IsReady = false;
+    }
+
 }

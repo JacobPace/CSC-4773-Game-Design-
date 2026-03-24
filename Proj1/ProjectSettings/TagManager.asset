@@ -15,6 +15,9 @@ TagManager:
   - EnemyType1
   - EnemyType2
   - EnemyType3
+  - Boss
+  - Enemy
+  - Laser
   layers:
   - Default
   - TransparentFX
@@ -23,8 +26,8 @@ TagManager:
   - Water
   - UI
   - Bullet
-  - 
-  - 
+  - Enemy
+  - Powerup
   - 
   - 
   - 

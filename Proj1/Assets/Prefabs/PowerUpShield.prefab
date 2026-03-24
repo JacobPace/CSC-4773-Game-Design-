@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2623172262280207951}
   - component: {fileID: 5449758540274230370}
   - component: {fileID: -990005581127887561}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PowerUpShield
   m_TagString: PowerUpShield
   m_Icon: {fileID: 0}
@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Powerup
   speed: 6
+  multishoot: {fileID: 0}
 --- !u!50 &-990005581127887561
 Rigidbody2D:
   serializedVersion: 5

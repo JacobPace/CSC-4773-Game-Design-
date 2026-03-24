@@ -8,22 +8,23 @@ public class Player : MonoBehaviour {
     public Transform bulletSpawnPoint;
     public Slider sliderHealth;
     public Shield shield;
-    public Multishoot multishoot;
-    public Laser laser;
     public GameObject expoPrefab;
     public UI ui;
+
+    // AUDIO CLIPS
     public AudioClip clipNormalFire;
     public AudioClip clipSuperFire;
     public AudioClip clipHurt;
     public AudioClip clipPowerupReceived;
-    public Score score;
+    
 
     // private fields
     private AudioSource audioSrc;
     private float health;
-    private const float Y_LIMIT = 4.6f;
+    private const float Y_LIMIT = 3.25f;
 
     private void Start() {
+        ui = UI.Instance;
         health = 1.0f;
         audioSrc = GetComponent<AudioSource>();
     }
@@ -36,9 +37,9 @@ public class Player : MonoBehaviour {
             ui.PauseGame();
         }
 
-        if (SpaceShooterInput.Instance.input.Fire.WasPressedThisFrame())
+        if (SpaceShooterInput.Instance.input.Fire.WasPressedThisFrame() && !Laser.Instance.IsActive)
         {
-            if (multishoot.IsActive)
+            if (Multishoot.Instance != null && Multishoot.Instance.IsActive)
             {
                 GameObject bulletObj = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                 bulletObj.GetComponent<Bullet>().speed *= 2;
@@ -53,7 +54,6 @@ public class Player : MonoBehaviour {
                 audioSrc.clip = clipNormalFire;
                 audioSrc.Play();
             }
-
         }
 
         var vertMove = SpaceShooterInput.Instance.input.MoveVertically.ReadValue<float>();
@@ -89,25 +89,31 @@ public class Player : MonoBehaviour {
 
     public void FireLaser()
     {
-        if (!multishoot.IsActive)
+        if (!Multishoot.Instance.IsActive)
         {
-            laser.activate();
+            Laser.Instance.activate();
         }
         else
         {
-            score.score += 1500;
+            Score.Instance.CollectPowerup();
         }
     }
 
     public void MultiShoot()
     {
-        if (!laser.IsActive)
+        if (Multishoot.Instance != null)
         {
-            multishoot.activate();
-        }
-        else
-        {
-            score.score += 1500;
+            if (!Laser.Instance.IsActive)
+            {
+                Multishoot.Instance.activate();
+                audioSrc.clip = clipPowerupReceived;
+                audioSrc.Play();
+            }
+            else
+            {
+                Score.Instance.CollectPowerup();
+            }
         }
     }
+
 }

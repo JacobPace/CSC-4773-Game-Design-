@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8502460853099130374}
   - component: {fileID: 7542645705263940201}
   - component: {fileID: -7981250041903454817}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PowerUpLaser
   m_TagString: PowerUpLaser
   m_Icon: {fileID: 0}
@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Powerup
   speed: 6
+  multishoot: {fileID: 0}
 --- !u!50 &-7981250041903454817
 Rigidbody2D:
   serializedVersion: 5

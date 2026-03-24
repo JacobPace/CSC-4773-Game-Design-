@@ -13,6 +13,7 @@ public class SpaceShooterInput : MonoBehaviour {
   }
 
   public void DisableInput() {
+        
     input.Disable();
   }
 

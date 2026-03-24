@@ -10,12 +10,12 @@ public class Powerup : MonoBehaviour {
   }
 
   private void OnCollisionEnter2D(Collision2D c) {
-    if (c.gameObject.CompareTag("Bullet")) {
+    if (c.gameObject.CompareTag("Bullet") || c.gameObject.CompareTag("Laser")) {
       Destroy(gameObject);
       Destroy(c.gameObject);
     }
     else if (c.gameObject.CompareTag("Player")) {
-        if (gameObject.CompareTag("PowerUpShield"))
+            if (gameObject.CompareTag("PowerUpShield"))
             {
                 Destroy(gameObject);
                 c.gameObject.GetComponent<Player>().RefillShield();
@@ -29,7 +29,7 @@ public class Powerup : MonoBehaviour {
          else if (gameObject.CompareTag("PowerUpLaser"))
             {
                 Destroy(gameObject);
-                //c.gameObject.GetComponent<Player>().FireLaser();
+                c.gameObject.GetComponent<Player>().FireLaser();
             }
       
     }

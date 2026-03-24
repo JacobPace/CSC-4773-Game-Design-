@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5316696425827724888}
   - component: {fileID: 4064517844255750082}
-  - component: {fileID: 4282903113109133258}
   - component: {fileID: -8329758993136382517}
   - component: {fileID: 115922134956984695}
-  m_Layer: 0
+  - component: {fileID: 7937118302302201643}
+  m_Layer: 7
   m_Name: EnemyType2
   m_TagString: EnemyType2
   m_Icon: {fileID: 0}
@@ -94,22 +94,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &4282903113109133258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8324733923138411140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18815278a21f432aa48915cffbdbeec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  e1Speed: 6
-  e2Speed: 6
-  e3Speed: 2
-  expoPrefab: {fileID: 5386597588948128404, guid: 8a7efade44ac549dda33630687e1524f, type: 3}
 --- !u!61 &-8329758993136382517
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -164,7 +148,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8324733923138411140}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -182,4 +166,23 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!114 &7937118302302201643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8324733923138411140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b18815278a21f432aa48915cffbdbeec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  e1Speed: 6
+  e2Speed: 11
+  e3Speed: 2
+  bossSpeed: 0.5
+  expoPrefab: {fileID: 5386597588948128404, guid: 8a7efade44ac549dda33630687e1524f, type: 3}
+  ui: {fileID: 0}
+  game: {fileID: 0}

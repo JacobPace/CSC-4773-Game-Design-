@@ -5,12 +5,13 @@ using Random = UnityEngine.Random;
 public class Game : MonoBehaviour {
   // set in inspector
   public float enemySpawnDelay;
-  //public GameObject enemyPrefab;
     public GameObject enemy1;
     public GameObject enemy2;
     public GameObject enemy3;
+    public GameObject boss;
+    public Enemy enemyScript;
+    public float killCount;
 
-  //public GameObject powerupPrefab;
     public GameObject shieldPowerup;
     public GameObject multishootPowerup;
     public GameObject laserPowerup;
@@ -21,13 +22,25 @@ public class Game : MonoBehaviour {
   private float powerUpDelay;
   private float enemySpawnTimer;
   private float powerupSpawnTimer;
+    Vector3 bossSpawnPoint = new Vector3(10, 0, 0);
+    private bool bossSpawned;
 
     private float enemyDecider;
     private float powerupDecider;
 
-  private void Start() {
-    powerUpDelay = Random.Range(5f, 10f);
-    powerupSpawnTimer = 0;
+    private void Awake()
+    {
+        powerUpDelay = Random.Range(5f, 10f);
+        powerupSpawnTimer = 0;
+        killCount = 0;
+        bossSpawned = false;
+    }
+
+    private void Start() {
+        powerUpDelay = Random.Range(5f, 10f);
+        powerupSpawnTimer = 0;
+        killCount = 0;
+        bossSpawned = false;
   }
 
   private void SpawnEnemy() {
@@ -35,18 +48,36 @@ public class Game : MonoBehaviour {
         Random.Range(spawnRange.bounds.min.x, spawnRange.bounds.max.x),
         Random.Range(spawnRange.bounds.min.y, spawnRange.bounds.max.y),
         0);
+
+        GameObject newEnemy;
         enemyDecider = Random.Range(1f, 10f);
         if (enemyDecider > 8)
         {
-            Instantiate(enemy3, enemySpawnPt, Quaternion.identity); // spawn enemy type 3
+            newEnemy = Instantiate(enemy3, enemySpawnPt, Quaternion.identity); // spawn enemy type 3
         }
         else if (enemyDecider > 4)
         {
-            Instantiate(enemy2, enemySpawnPt, Quaternion.identity); // spawn enemy type 2
+            newEnemy = Instantiate(enemy2, enemySpawnPt, Quaternion.identity); // spawn enemy type 2
         }
         else
         {
-            Instantiate(enemy1, enemySpawnPt, Quaternion.identity); // spawn enemy type 1
+            newEnemy = Instantiate(enemy1, enemySpawnPt, Quaternion.identity); // spawn enemy type 1
+        }
+
+        Enemy script = newEnemy.GetComponent<Enemy>();
+        if (script != null)
+        {
+            script.game = this;
+            script.ui = this.ui;
+        }
+
+        if(killCount > 40 && !bossSpawned)
+        {
+            GameObject spawnedBoss = Instantiate(boss, bossSpawnPoint, Quaternion.identity);
+            Enemy bossScript = spawnedBoss.GetComponent<Enemy>();
+            bossScript.game = this;
+            bossScript.ui = this.ui;
+            bossSpawned=true;
         }
   }
   private void SpawnPowerup() {

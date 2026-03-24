@@ -1,45 +1,62 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Laser : MonoBehaviour
 {
-    public Multishoot multishoot;
-
-    //public GameObject laser;
-
-    private float laserTime;
+    public static Laser Instance; // Global access
     public float maxLaserTime;
+    //set in inspector
+    public GameObject laser;
+    public AudioClip clipFiringMyLaser;
+    public bool IsActive { get; private set; }
+    public Slider slider;
+    private float laserTime;
+    private AudioSource audioSrc;
 
-    public bool IsActive {  get; private set; }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        laserTime = maxLaserTime;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        slider = GetComponent<Slider>();
+        gameObject.SetActive(false);
+        laser.SetActive(false);
         IsActive = false;
+        audioSrc = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (IsActive)
         {
-            if(laserTime > 0)
-            {
-                laserTime -= Time.deltaTime;
-            }
-            else
+            laser.SetActive(true);
+            laserTime -= Time.deltaTime;
+            slider.value = laserTime;
+            if (laserTime <= 0)
             {
                 IsActive = false;
+                gameObject.SetActive(false);
+                laser.SetActive(false);
             }
-        }
-        if (!IsActive)
-        {
-            laserTime = maxLaserTime;
         }
     }
 
     public void activate()
     {
+        this.gameObject.SetActive(true);
         IsActive = true;
+        laserTime = maxLaserTime;
+        if (slider == null) slider = GetComponent<Slider>();
+        slider.maxValue = maxLaserTime;
+        slider.value = laserTime;
+        audioSrc.clip = clipFiringMyLaser;
+        audioSrc.Play();
     }
-
 }

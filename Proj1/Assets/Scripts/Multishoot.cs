@@ -1,46 +1,52 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Multishoot : MonoBehaviour
 {
-    // set in inspector
+    public static Multishoot Instance; // Global access
     public float maxMultiShootTime;
-
-    public  bool IsActive {  get; private set; }
-    public Laser laser;
-
-
+    public bool IsActive { get; private set; }
+    public Slider slider;
     private float multiShootTime;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        multiShootTime = maxMultiShootTime;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
         IsActive = false;
+        slider = GetComponent<Slider>();
+        gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (IsActive)
         {
-            if (multiShootTime > 0)
-            {
-                multiShootTime -= Time.deltaTime;
-            }
-            else
+            multiShootTime -= Time.deltaTime;
+            slider.value = multiShootTime;
+            if (multiShootTime <= 0)
             {
                 IsActive = false;
+                gameObject.SetActive(false);
             }
         }
-        if (!IsActive)
-        {
-            multiShootTime = maxMultiShootTime;
-        }        
     }
 
     public void activate()
     {
+        this.gameObject.SetActive(true);
         IsActive = true;
+        multiShootTime = maxMultiShootTime;
+        if (slider == null) slider = GetComponent<Slider>();
+        slider.maxValue = maxMultiShootTime;
+        slider.value = multiShootTime;
     }
-
 }
